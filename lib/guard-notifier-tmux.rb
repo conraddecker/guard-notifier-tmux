@@ -1,3 +1,4 @@
+require "guard/notifier"
 require "guard-notifier-tmux/version"
 
 module Guard
@@ -45,5 +46,7 @@ module Guard
 				system "tmux set status-right '#{msg.gsub("'", "\'")}'"
 			end
     end
+
+		NOTIFIERS << [:tmux, Tmux]
   end
 end
