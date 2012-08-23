@@ -7,13 +7,7 @@ module Guard
 			extend self
 
 			def available?(silent = false)
-				system("tmux has-session").tap do |avail|
-					if avail
-						::Guard::UI.info "Tmux was there, holy shit!"
-					else
-						::Guard::UI.error "Tmux missing, sad story bro!"
-					end
-				end
+				!!system("tmux has-session")
 			end	
 
 			#type can be success, pending, failed, or notify
