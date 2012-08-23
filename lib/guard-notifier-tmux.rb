@@ -7,7 +7,13 @@ module Guard
 			extend self
 
 			def available?(silent = false)
-				system "tmux has-session"
+				system("tmux has-session").tap do |avail|
+					if avail
+						::Guard::UI.info "Tmux was there, holy shit!"
+					else
+						::Guard::UI.error "Tmux missing, sad story bro!"
+					end
+				end
 			end	
 
 			#type can be success, pending, failed, or notify
@@ -23,7 +29,6 @@ module Guard
 			end
 
 			DEFAULT_STATUSRIGHT = '"#22T" %H:%M %d-%b-%y'
-			DEFAULT_TMUX_CMD = 'tmux'
 
 			SCREEN_COLOR = {
 				black:  %w{white black},
